@@ -1,0 +1,45 @@
+Connect-AzAccount
+
+#create storage account
+# put resource group in a variable so you can use the same group name going forward,
+# without hard-coding it repeatedly
+$resourceGroup = "storage-resource-group"
+$location = "westus"
+New-AzResourceGroup -Name $resourceGroup -Location $location
+-------------------------------------------------
+get-alias cls 
+
+//get any resource
+Get-Az - press tab
+Get-AzStor - press tab
+
+$res = Get-AzResource 
+$res | Format-Table   
+
+//new 
+New-Az*****
+
+//update resource
+Set-Az*****
+
+//remove
+Remove-Az*****
+
+// get command with wild card pattern
+Get-command New-az*zone*   //for any command with zone
+
+//get help
+Get-help new-azvm -Examples | -Detailed | -Full
+----------------------------------------------------
+//az cli
+ az find storage   //finds all commands related to storage
+ az find "az storage account"
+ az find "az storage account create" // gets examples to create storage account
+ az storage account create --help
+ az storage --help
+ az storage account --help
+ az storage account create --help
+  
+  
+ 
+ 
