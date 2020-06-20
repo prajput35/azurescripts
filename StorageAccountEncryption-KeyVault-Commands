@@ -1,0 +1,11 @@
+$keyVault = New-AzKeyVault -Name azurevault2020 -ResourceGroupName azuredemo -Location "Central US" -EnableSoftDelete -EnablePurgeProtection
+
+$storageAccount = Set-AzStorageAccount -ResourceGroupName "azuredemo" -Name "demostore2020" -AssignIdentity
+
+Set-AzKeyVaultAccessPolicy -VaultName $keyVault.VaultName -ObjectId $storageAccount.Identity.PrincipalId -PermissionsToKeys wrapkey,unwrapkey,get,recover
+
+Set-AzKeyVaultAccessPolicy -VaultName $keyVault.VaultName -ObjectId "a5bd57b6-8b0e-4709-8208-9ac7a00ee0f0" -PermissionsToKeys create,get,list,update
+
+$key = Add-AzKeyVaultKey -VaultName $keyVault.VaultName -Name appkey -Destination 'Software'
+
+Set-AzStorageAccount -ResourceGroupName $storageAccount.ResourceGroupName -AccountName $storageAccount.StorageAccountName -KeyvaultEncryption -KeyName $key.Name -KeyVersion $key.Version -KeyVaultUri $keyVault.VaultUri
