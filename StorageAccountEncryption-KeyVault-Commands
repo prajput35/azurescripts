@@ -9,3 +9,7 @@ Set-AzKeyVaultAccessPolicy -VaultName $keyVault.VaultName -ObjectId "a5bd57b6-8b
 $key = Add-AzKeyVaultKey -VaultName $keyVault.VaultName -Name appkey -Destination 'Software'
 
 Set-AzStorageAccount -ResourceGroupName $storageAccount.ResourceGroupName -AccountName $storageAccount.StorageAccountName -KeyvaultEncryption -KeyName $key.Name -KeyVersion $key.Version -KeyVaultUri $keyVault.VaultUri
+
+
+Add masking
+New-AzureRmSqlDatabaseDataMaskingRule -ResourceGroupName "azuredemo" -ServerName "appdbserver2020" -DatabaseName "appdb" -SchemaName "dbo" -TableName "Customer" -ColumnName "UserCode" -MaskingFunction "Text" -SuffixSize 4 -ReplacementString "xxxxxxxxx"
